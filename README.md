@@ -53,5 +53,11 @@
 ![Рис. 1 - Блок-схема програмної системи автоматизованої ідентифікації мови](http://ic.pics.livejournal.com/skirlinxxx/24636159/83141/83141_900.jpg)
 Рис. 1 - Поки що товстий котик (має бути "Блок-схема програмної системи автоматизованої ідентифікації мови")
 
+<p align="center">
+
+  <img src="http://ic.pics.livejournal.com/skirlinxxx/24636159/83141/83141_900.jpg">
+
+</p>
+
 
 © 2022 [Oleh Dmytrenko](https://github.com/OlehDmytrenko)
