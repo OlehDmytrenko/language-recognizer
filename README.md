@@ -21,7 +21,7 @@
 <a name="software"></a>
 <h2>Програмне забезпечення, необхідне для функціонування програмної системи</h2>
 
-Для функціонування програмної системи, написаної мовою програмування `Python`, необхідне наступне програмне забезпечення та пакети:
+Для функціонування програмної системи, написаної мовою програмування `Python`, необхідне наступне програмне забезпечення, пакети та моделі:
 
 - `python 3.8.0` or newer [v3.8.0](https://www.python.org/downloads/release/python-380/)
 - `MoviePy` [v2.0.0](https://pypi.org/project/moviepy/2.0.0.dev2/)
@@ -31,6 +31,9 @@
 - `csv` [latest version](https://docs.python.org/3/library/csv.html)
 - `codecs` [latest version](https://docs.python.org/3/library/codecs.html)
 - `re` [v2.2.1](https://docs.python.org/3/library/re.html)
+
+- `vosk-model-uk-v3` [v3](https://alphacephei.com/vosk/models/vosk-model-uk-v3.zip)
+- `vosk-model-small-ru-0.22` [0.22](https://alphacephei.com/vosk/models/vosk-model-small-ru-0.22.zip)
 
 <a name="function"></a>
 <h2>Функціональне призначення</h2>
