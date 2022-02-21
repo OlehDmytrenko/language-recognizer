@@ -52,6 +52,7 @@
 
 
 ![Рис. 1 - Блок-схема програмної системи автоматизованої ідентифікації мови](https://drive.google.com/drive/folders/1m6QXajVB7obAeA75KMK-J1K57KwYVMoc)
+![Рис. 1 - Блок-схема програмної системи автоматизованої ідентифікації мови](C:\Users\Олег Дмитренко\OneDrive\Документи\Робота\AI\Paper\Розпізнавання_мови_мовлення\Figures\Блок-схема_Системи.jpg)
 
 
 © 2022 [Oleh Dmytrenko](https://github.com/OlehDmytrenko)
