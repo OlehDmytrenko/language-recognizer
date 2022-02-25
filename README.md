@@ -105,6 +105,6 @@ python languageRecognizer.py > output.txt
 При використанні оператора `>` вміст файлу, в який відображаються дані, повністю перезаписується. Якщо наявні дані потрібно зберегти, а нові дописати до існуючих, то використовується оператор `>>`:
 ```cmd
 python languageRecognizer.py >> output.txt
-``` 
+```
 
 © 2022 [Oleh Dmytrenko](https://github.com/OlehDmytrenko)
