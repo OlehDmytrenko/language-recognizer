@@ -23,6 +23,8 @@
 
 Для функціонування програмної системи, написаної мовою програмування `Python`, необхідне наступне програмне забезпечення, пакети та моделі:
 
+- `Docker` [v20.10](https://docs.docker.com/engine/release-notes/#version-2010)
+- `Kubernetes` [v1.22.4](https://github.com/kubernetes/kubernetes/releases/tag/v1.22.4)
 - `python 3.8.0` or newer [v3.8.0](https://www.python.org/downloads/release/python-380/)
 - `MoviePy` [v2.0.0](https://pypi.org/project/moviepy/2.0.0.dev2/)
 - `vosk` [v0.3.32](https://pypi.org/project/vosk/0.3.32/)
@@ -51,7 +53,7 @@
 - Повернення мітки конкретної мови (наприклад, «українська», «російська» або «невизначена мова»)
 
 <p align="center">
-  <img src="http://ic.pics.livejournal.com/skirlinxxx/24636159/83141/83141_900.jpg">
+  <img src="https://github.com/OlehDmytrenko/language-recognizer/blob/main/Flowchart.jpg">
 </p>
 
 Рис. 1 - Поки що товстий котик (має бути "Блок-схема програмної системи автоматизованої ідентифікації мови")
@@ -59,7 +61,7 @@
 <a name="hardware"></a>
 <h2>Використовувані технічні засоби</h2>
 
-Програмний модуль експлуатується на сервері під управлінням операційної системи типу `Linux` (64-х разрядна). В основі управління всіх сервісів є система `System`.
+Програмна система експлуатується на сервері (або у хмарі серверів) під управлінням операційної системи типу `Linux` (64-х разрядна). В основі управління всіх сервісів є система оркестрації `Kubernetes`, де всі контейнери працюють з використанням `Docker`.
 
 
 <a name="run"></a>
