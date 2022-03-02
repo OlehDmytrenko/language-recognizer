@@ -5,6 +5,10 @@ Created on Thu Jun 10 10:57:26 2021
 @author: dmytr
 """
 
+from modules import packagesInstaller
+packages = ['moviepy', 'vosk', 'wave', 'scipy', 'csv', 'codecs']
+packagesInstaller.setup_packeges(packages)
+
 import moviepy.editor as mp
 from vosk import Model, KaldiRecognizer
 import os
@@ -35,24 +39,27 @@ def video2parts(minutes):
         samplerate, data = wavfile.read(in_dir+file_)
         print ('Samplerate {0}'.format(samplerate))
         totalSize = len(data)
-        ChunkSize = samplerate*minutes*15 #60 sec in 1 minute
+        ChunkSize = samplerate*minutes*15 #1 minute has 60 sec
         amountChunk = int(totalSize/ChunkSize)
         
         for i in range(amountChunk):
             chunkData = data[i*ChunkSize:i*ChunkSize+ChunkSize]
             name += 1
-            wavfile.write(out_dir+str(name)+'.wav', samplerate ,chunkData)
+            wavfile.write(out_dir+str(name)+'.wav', samplerate, chunkData)
 
 def video2wav():
     videos_dir = os.getcwd()+'/videos/'
     tests_dir = os.getcwd()+'/audios/full_audios/'
+    if not os.path.exists(tests_dir):
+        print("Directory don't exist") 
+        os.mkdir(tests_dir)
     for file_ in os.listdir(videos_dir):
         clip = mp.VideoFileClip(videos_dir+file_)
         clip.audio.write_audiofile(tests_dir+os.path.splitext(file_)[0].lower()+'.wav',  fps=44100, nbytes=2,  ffmpeg_params=["-ac", "1"])    #fps=1000, 
         clip.close()
     
 def recognizer(file, model, templ):
-    wf = wave.open(os.getcwd()+'/audios/part_audios/'+file, "rb")   
+    wf = wave.open(os.getcwd()+'/audios/part_audios/'+file, "rb")
     rec = KaldiRecognizer(model, wf.getframerate()) 
     text = []
     fulltext = ''
@@ -82,6 +89,12 @@ def recognizer(file, model, templ):
     return countTemplates, tamlateFreq, text
 
 video2wav()
+partsAudioDir = os.getcwd()+'/audios/part_audios/'
+if not os.path.exists(partsAudioDir):
+    print ("Directory {0} don't exist!".format(partsAudioDir))
+    print ("Creating {0} directory...".format(partsAudioDir))
+    os.mkdir(partsAudioDir)
+    print ("Directory {0} was created seccsesfuly!".format(partsAudioDir))
 video2parts(1)
 
 templ_ukr, templ_rus = weightedTemplates('UKR_RUS_Recall.csv')
@@ -92,8 +105,19 @@ anotherCount = 0
 model_ukr = Model("models/model_ukr")
 model_rus = Model("models/model_ru")
 
-out_results = open(os.getcwd()+'/results/results.txt', 'a', encoding='utf-8')
-for file in os.listdir(os.getcwd()+'/audios/part_audios/'):
+try:
+    out_results = open(os.getcwd()+'/results/results.txt', 'a', encoding='utf-8')
+except:
+    outDir = os.getcwd()+'/results/'
+    if not os.path.exists(outDir):
+        print ("Directory {0} don't exist!".format(outDir))
+        print ("Creating {0} directory...".format(outDir))
+        os.mkdir(outDir)
+        print ("Directory {0} was created seccsesfuly!".format(outDir))
+        out_results = open(os.getcwd()+'/results/results.txt', 'a', encoding='utf-8')
+
+        
+for file in os.listdir(partsAudioDir):
     print ('Recognition of: {0}'.format(file))
     out_results.write('Recognition of: {0}'.format(file)+'\n')
     countUkrTemplates, UkrTamlateFreq, text = recognizer(file, model_ukr, templ_ukr)
