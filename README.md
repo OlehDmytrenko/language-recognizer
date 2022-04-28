@@ -21,11 +21,14 @@
 <a name="software"></a>
 <h2>Програмне забезпечення, необхідне для функціонування програмної системи</h2>
 
-Для функціонування програмної системи, написаної мовою програмування `Python`, необхідне наступне програмне забезпечення, пакети та моделі:
-
-- `Docker` [v20.10](https://docs.docker.com/engine/release-notes/#version-2010)
-- `Kubernetes` [v1.22.4](https://github.com/kubernetes/kubernetes/releases/tag/v1.22.4)
+Для функціонування програмної системи, написаної мовою програмування `Python`, необхідне наступне програмне забезпечення:
 - `python 3.8.0` or newer [v3.8.0](https://www.python.org/downloads/release/python-380/)
+
+```sh
+python --version Python 3.8.0
+```
+
+пакети:
 - `MoviePy` [v2.0.0](https://pypi.org/project/moviepy/2.0.0.dev2/)
 - `Vosk` [v0.3.32](https://pypi.org/project/vosk/0.3.32/)
 - `wave` [v0.0.2](https://pypi.org/project/Wave/0.0.2/)
@@ -34,8 +37,20 @@
 - `codecs` [latest version](https://docs.python.org/3/library/codecs.html)
 - `re` [v2.2.1](https://docs.python.org/3/library/re.html)
 
+```sh
+pip install moviepy
+pip install vosk
+pip install wave
+pip install scipy
+pip install csv
+pip install codecs
+pip install re
+```
+
+моделі:
 - `vosk-model-uk-v3` [v3](https://alphacephei.com/vosk/models/vosk-model-uk-v3.zip)
 - `vosk-model-small-ru-0.22` [0.22](https://alphacephei.com/vosk/models/vosk-model-small-ru-0.22.zip)
+які необхідно вивантажити та розпакувати у директорію `models`.
 
 <a name="function"></a>
 <h2>Функціональне призначення</h2>
@@ -63,7 +78,7 @@
 <a name="hardware"></a>
 <h2>Використовувані технічні засоби</h2>
 
-Програмна система експлуатується на сервері (або у хмарі серверів) під управлінням операційної системи типу `Linux` (64-х разрядна).
+Програмна система експлуатується на сервері (або у хмарі серверів) під управлінням операційної системи типу `Linux` (64-х разрядна) або під керівництвом операційної системи сімейства `Windows OS`.
 Загальний обсяг пам'яті, яку займає програмна ситема разом із завантаженими мовними моделями та без вхідних відеофайлів досягає 1,5 Гб.
 
 <a name="run"></a>
@@ -86,7 +101,7 @@ python main.py
 #!/usr/bin/env python3
 ```
 
-Далі необхідно клонувати репозиторій  та проінсталюйте залежності:
+Далі необхідно клонувати репозиторій та проінсталювати залежності:
 ```sh
 git clone https://github.com/OlehDmytrenko/language-recognizer.git
 cd language-recognizer

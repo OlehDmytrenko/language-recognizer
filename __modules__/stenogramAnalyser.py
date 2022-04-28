@@ -6,7 +6,7 @@ Created on Tue Apr 26 16:24:46 2022
 @author: dmytrenko.o
 """
 import sys
-stdOutput = open("outlog.log", "a")
+stdOutput = open("outlog.log", "w")
 sys.stderr = stdOutput
 sys.stdout = stdOutput
 
@@ -29,6 +29,8 @@ def recognizer(partsAudioDir, audio, model, templ):
     text = ''
     for part in textarray:
         text += part+' '
+    
+    print (text)
     
     countTemplates = 0
     tamlateFreq = dict()
