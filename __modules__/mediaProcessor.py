@@ -6,7 +6,7 @@ Created on Tue Apr 26 19:43:43 2022
 @author: dmytrenko.o
 """
 import sys
-stdOutput = open("outlog.log", "a")
+stdOutput = open("outlog.log", "w")
 sys.stderr = stdOutput
 sys.stdout = stdOutput
 
@@ -37,6 +37,11 @@ def audio2parts(audiosDir, sec):
     return partsAudioDir
 
 def video2wav(videosDir, audiosDir):
+    if not os.path.exists(audiosDir):
+            print ("Directory {0} don't exist!".format(audiosDir))
+            print ("Creating {0} directory...".format(audiosDir))
+            os.mkdir(audiosDir)
+            print ("Directory {0} was created seccsesfuly!".format(audiosDir))   
     fullAudioDir = audiosDir+'full_audios/'
     if not os.path.exists(fullAudioDir):
         print ("Directory {0} don't exist!".format(fullAudioDir))

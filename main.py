@@ -5,8 +5,12 @@ Edited on Sat Mar 5 05:01:43 2022
 
 @author: dmytr
 """
+from __modules__ import packagesInstaller
+packages = ['sys', 'subprocess', 'os', 'io', 'time', 'tempfile', 'zipfile', 'requests', 'codecs', 'csv', 'scipy', 'moviepy', 'vosk', 'wave', 're']
+packagesInstaller.setup_packeges(packages)
+
 import sys
-stdOutput = open("outlog.log", "a")
+stdOutput = open("outlog.log", "w")
 sys.stderr = stdOutput
 sys.stdout = stdOutput
 
@@ -24,7 +28,10 @@ if __name__ == "__main__":
     except:
         if not os.path.exists(os.getcwd()+'/videos/'):
             print("Directory './videos/' don't exist") 
+            print ("Directory {0} don't exist!".format(os.getcwd()+'/videos/'))
+            print ("Creating {0} directory...".format(os.getcwd()+'/videos/'))
             os.mkdir(os.getcwd()+'/videos/')
+            print ("Directory {0} was created seccsesfuly!".format(os.getcwd()+'/videos/'))
         inputFileDir =  os.getcwd()+'/videos/'
     
     audiosDir =  os.getcwd()+'/audios/'

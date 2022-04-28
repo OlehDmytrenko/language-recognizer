@@ -6,7 +6,7 @@ Edited on Sat Mar 5 05:02:22 2022
 @author: dmytrenko.o
 """
 import sys
-stdOutput = open("outlog.log", "a")
+stdOutput = open("outlog.log", "w")
 sys.stderr = stdOutput
 sys.stdout = stdOutput
 
@@ -47,12 +47,12 @@ def download_model(model):
         file = tempfile.TemporaryFile()
         file.write(response.content)
         fzip = zipfile.ZipFile(file)
-        fzip.extractall('model')
+        fzip.extractall('models')
         file.close()
         fzip.close()
         print ("{0} model was downloaded, unpacked and installed successfuly!".format(model))
     except:
-        print ("Please download the {0} from https://alphacephei.com/vosk/models and unpack as {0} in the 'model' folder. Then press <Enter>.".format(model))   
+        print ("Please download the {0} from https://alphacephei.com/vosk/models and unpack as {0} in the 'models' folder. Then press <Enter>.".format(model))   
         input()
     return
 
@@ -63,16 +63,14 @@ def load_default_models(modelsDir, defaultLangs, modelsHashMap):
     #checking if list is empty
     if defaultLangs:
         for lang in defaultLangs:
-            if lang in list(modelsHashMap.keys()):
+            try:
                 voskModels[lang] = Model(modelsDir+modelsHashMap[lang])
-            else:
-                try:
-                    download_model(modelsHashMap[lang])
-                    voskModels[lang] = Model(modelsDir+modelsHashMap[lang])
-                    print ('{0} Vosk model {1} was downloaded successfully!'.format(lang, modelsHashMap[lang]))   
-                except:
-                    return "Error! '{0} Vosk model {1} can not be dowloaded!".format(lang, modelsHashMap[lang])
-                
+            except:
+                download_model(modelsHashMap[lang])
+                voskModels[lang] = Model(modelsDir+modelsHashMap[lang])
+                print ('{0} Vosk model {1} was downloaded successfully!'.format(lang, modelsHashMap[lang]))   
+                continue
+              
     else:
         print('The <defaultLangs> list is empty!')
         print ("""Please, enter below at least one language and Vosk model 
@@ -88,7 +86,6 @@ def load_default_modelshashmap(defaultModalsHashMapDir):
         modelsHashMap = dict(line.split(":") for line in (io.open(defaultModalsHashMapDir+"defaultModelsHashMap.csv", 'r', encoding="utf-8").read()).split())
     except:
         modelsHashMap = {"uk":"vosk-model-uk-v3", "ru":"vosk-model-ru-0.22"}
-    print (modelsHashMap)
     return modelsHashMap
 
 def load_except_languages(defaultExcLangsDir):
