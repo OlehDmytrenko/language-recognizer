@@ -101,7 +101,7 @@ python main.py
 #!/usr/bin/env python3
 ```
 
-Далі необхідно клонувати репозиторій та проінсталювати залежності:
+Для роботи з програмною системою необхідно клонувати репозиторій та проінсталювати залежності:
 ```sh
 git clone https://github.com/OlehDmytrenko/language-recognizer.git
 cd language-recognizer
