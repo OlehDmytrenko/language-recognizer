@@ -1,12 +1,10 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Thu Jun 10 10:57:26 2021
-Edited on Sat Mar 5 05:01:43 2022
-
 @author: dmytr
 """
 from __modules__ import packagesInstaller
-packages = ['sys', 'subprocess', 'os', 'io', 'time', 'tempfile', 'zipfile', 'requests', 'codecs', 'csv', 'scipy', 'moviepy', 'vosk', 'wave', 're']
+packages = ['sys', 'subprocess', 'os', 'io', 'time', 'tempfile', 'zipfile', 'requests', 'codecs', 'csv', 'json', 'scipy', 'moviepy', 'shutil', 'vosk', 'wave', 're']
 packagesInstaller.setup_packeges(packages)
 
 import sys
@@ -16,7 +14,7 @@ sys.stdout = stdOutput
 
 import os, subprocess
 subprocess.run('python -m venv '+os.getcwd()+'/modules/', shell=True)
-from __modules__ import defaultLoader, stenogramAnalyser, mediaProcessor
+from __modules__ import defaultLoader, modelsLoader, stenogramAnalyser, mediaProcessor
 
 import time
 t0 = time.time()
@@ -34,47 +32,43 @@ if __name__ == "__main__":
             print ("Directory {0} was created seccsesfuly!".format(os.getcwd()+'/videos/'))
         inputFileDir =  os.getcwd()+'/videos/'
     
+    modelsHashMap = defaultLoader.load_lang_models_config(os.getcwd())
+    defaultLangs = list(modelsHashMap.keys())
+    templatesHashMap = defaultLoader.load_templateshashmap(os.getcwd()+'/templates/')
+    audioDuration = defaultLoader.load_int_value(os.getcwd(), "audioDuration") # sec, audioDuration is part of audios
+    
     audiosDir =  os.getcwd()+'/audios/'
-    
     mediaProcessor.video2wav(inputFileDir, audiosDir)
-    partsAudioDir = mediaProcessor.audio2parts(audiosDir, 15) #30 sec is part of audios
+    mediaProcessor.audio2parts(audiosDir, audioDuration)
     
-    # Add config.json file
-    defaultLangs = defaultLoader.load_default_languages(os.getcwd())
-    exceptedLangs = defaultLoader.load_except_languages(os.getcwd())
-    modelsHashMap = defaultLoader.load_default_modelshashmap(os.getcwd())
-    #
-    
-    templatesHashMap = defaultLoader.load_default_templateshashmap(os.getcwd()+'/templates/')
     
     ukrCount = 0
     rusCount = 0
     mixedCount = 0
     
-    voskModels = defaultLoader.load_default_models(os.getcwd()+'/models/', defaultLangs, modelsHashMap)
+    voskModels = modelsLoader.load_models(os.getcwd()+'/models/', defaultLangs, modelsHashMap)
     
-    for audio in os.listdir(partsAudioDir):
-        #countTemplates = {"uk" : "", "ru" : ""}
+    for audio in os.listdir(audiosDir):
         countTemplates = dict()
         print ('Recognition of: {0}'.format(audio))
         for lang in defaultLangs:
-            countTemplates[lang] = stenogramAnalyser.recognizer(partsAudioDir, audio, voskModels[lang], templatesHashMap[lang])         
+            countTemplates[lang] = stenogramAnalyser.recognizer(audiosDir, audio, voskModels[lang], templatesHashMap[lang])         
         if countTemplates["uk"]>countTemplates["ru"]:
             print ('Ukrainian\n')
             sys.stdout = sys.__stdout__
-            print ('Ukrainian')
+            print (audio + ' - Ukrainian')
             sys.stdout = stdOutput
             ukrCount += 1
         elif countTemplates["ru"]>countTemplates["uk"]:
             print ('Russian\n')
             sys.stdout = sys.__stdout__
-            print ('Russian')
+            print (audio + ' - Russian')
             sys.stdout = stdOutput
             rusCount += 1
         else:
             print ('Mixed\n')
             sys.stdout = sys.__stdout__
-            print ('Mixed')
+            print (audio + ' - Mixed')
             sys.stdout = stdOutput
             mixedCount += 1
     
@@ -82,6 +76,5 @@ if __name__ == "__main__":
     print ('Russian {0}'.format(rusCount))
     print ('Mixed {0}'.format(mixedCount))
     
-    print ("\nYou are lucky! The program successfully finished!\n")
-    print (time.time() - t0)
+    print ('Time {0}'.format(time.time() - t0))
     
