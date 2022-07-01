@@ -42,7 +42,8 @@ def audio2parts(audiosDir, audioDuration):
     return
 
 def video2wav(videosDir, audiosDir):
-    shutil.rmtree(audiosDir)
+    if os.path.exists(audiosDir):
+        shutil.rmtree(audiosDir)
     if not os.path.exists(audiosDir):
             print ("Directory {0} don't exist!".format(audiosDir))
             print ("Creating {0} directory...".format(audiosDir))
