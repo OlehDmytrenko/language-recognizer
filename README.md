@@ -131,6 +131,6 @@ python main.py > outlog.log
 python language-recognizer.py >> outlog.log
 ```
 
-Під час першого запуску програми, у випадку відсутності української чи російської моделей ([`vosk-model-uk-v3`](https://alphacephei.com/vosk/models/vosk-model-uk-v3.zip) та [`vosk-model-small-ru-0.22`(https://alphacephei.com/vosk/models/vosk-model-small-ru-0.22.zip), відповідно), що повинні знаходитись у директорії `./models`, система автоматично здійснить завантаження та розпакування цих моделей. Цей процес ресурсозадратний й може вимагати достатньо багато часу на його виконання.
+Під час першого запуску програми, у випадку відсутності української чи російської моделей ([`vosk-model-uk-v3`](https://alphacephei.com/vosk/models/vosk-model-uk-v3.zip) та [`vosk-model-small-ru-0.22`](https://alphacephei.com/vosk/models/vosk-model-small-ru-0.22.zip), відповідно), що повинні знаходитись у директорії `./models`, система автоматично здійснить завантаження та розпакування цих моделей. Цей процес ресурсозадратний й може вимагати достатньо багато часу на його виконання.
 
 © 2022 [Oleh Dmytrenko](https://github.com/OlehDmytrenko)
